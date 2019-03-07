@@ -11,11 +11,17 @@ import UIKit
 class ViewController: UITableViewController {
     var pictures = [String]()
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         title = "Storm viewer"
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         let fileManager = FileManager.default
         
@@ -29,6 +35,8 @@ class ViewController: UITableViewController {
             if item.hasPrefix("nssl") {
                pictures.append(item)
             }
+            
+            pictures.sort()
         }
         
         print("\nPictures: \(pictures)")
@@ -52,13 +60,23 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            
             // 2: success! Set its selectedImage property
             vc.selectedImage = pictures[indexPath.row]
+            
+            let x = indexPath.row + 1
+            vc.selectedPictureNumber = x
+            
+            let y = pictures.count
+            vc.totalPictures = y
+            
             
             // 3: now push it onto the navigation controller
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    
     
 }
 

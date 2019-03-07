@@ -12,6 +12,13 @@ class DetailViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     
     var selectedImage: String?
+    var selectedImageTitle: String?
+    var selectedPictureNumber = 0
+    var totalPictures = 0
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +26,8 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //title = "View picture"
-        title = selectedImage
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //title = selectedImage
+        title = "Picture \(selectedPictureNumber) of \(totalPictures)"
         
         navigationItem.largeTitleDisplayMode = .never
         
